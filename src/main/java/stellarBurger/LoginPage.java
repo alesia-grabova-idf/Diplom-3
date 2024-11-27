@@ -1,6 +1,7 @@
 package stellarBurger;
 
 import config.StellarBurgerConfig;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -26,7 +27,7 @@ public class LoginPage implements BasePage{
   public WebDriver getDriver() {
     return driver;  // Возвращаем драйвер, который был передан через конструктор
   }
-
+  @Step("Login")
   public void login (String email, String password) {
     driver.findElement(emailInput).sendKeys(email);
     driver.findElement(passwordInput).sendKeys(password);

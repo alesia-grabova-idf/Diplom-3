@@ -1,8 +1,10 @@
 package stellarBurger;
 
 import config.StellarBurgerConfig;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utils.generators.model.User;
 
 public class RegistrationPage implements BasePage {
 
@@ -12,6 +14,7 @@ public class RegistrationPage implements BasePage {
   private By passwordInput = By.xpath("//input[@type='password']");
   private By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
   private By loginButton = By.xpath("//a[@href='/login']");
+  private By incorrectPassword = By.xpath("//p[text()='Некорректный пароль']");
 
   public RegistrationPage(WebDriver driver) {
     this.driver = driver;
@@ -21,27 +24,36 @@ public class RegistrationPage implements BasePage {
   public String getPageUrl() {
     return StellarBurgerConfig.REGISTER_USER;
   }
+
   @Override
   public WebDriver getDriver() {
     return driver;
   }
 
-  public void fillRegisterData(String name, String email, String password) {
-    driver.findElement(nameInput).sendKeys(name);
-    driver.findElement(emailInput).sendKeys(email);
-    driver.findElement(passwordInput).sendKeys(password);
+  @Override
+  public void verifyPageEndpoint() {
+    BasePage.super.verifyPageEndpoint();
   }
 
+  @Step("Enter users data: Name, Email, Password ")
+  public void fillRegisterData(User user) {
+    driver.findElement(nameInput).sendKeys(user.getName());
+    driver.findElement(emailInput).sendKeys(user.getEmail());
+    driver.findElement(passwordInput).sendKeys(user.getPassword());
+  }
+
+  @Step("Click register button")
   public void clickRegisterButton() {
     driver.findElement(registerButton).click();
   }
 
+  @Step("Click Login Button ")
   public void clickLoginButton() {
     driver.findElement(loginButton).click();
   }
 
-  @Override
-  public void verifyPageEndpoint() {
-    BasePage.super.verifyPageEndpoint();
+  @Step("Verify visibility of Некоректный пароль message")
+  public boolean isValidationMessageVisible() {
+    return isElementVisible(incorrectPassword);
   }
 }

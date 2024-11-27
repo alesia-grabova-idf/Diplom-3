@@ -1,5 +1,6 @@
 package stellarBurger;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -10,14 +11,15 @@ public class MainMenu {
   private By privateAreaButton = By.xpath("//a[@href=\"/account\"]");
   private By orderLine = By.xpath("//a[@href=\"/feed\"]");
 
+  @Step("Click Constructor button")
   public void clickConstructorButton(){
     driver.findElement(constructor).click();
   }
-
+  @Step("Click Stellar Burger Logo")
   public void clickStellarBurgLogo(){
     driver.findElement(stellarBurgLogo).click();
   }
-
+  @Step("Click Private Area Button")
   public void clickPrivateAreaButton(){
     driver.findElement(privateAreaButton).click();
   }
