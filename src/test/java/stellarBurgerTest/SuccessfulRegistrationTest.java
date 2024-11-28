@@ -3,7 +3,6 @@ package stellarBurgerTest;
 import static org.junit.Assert.assertEquals;
 
 import stellarBurger.LoginPage;
-import stellarBurger.MainPage;
 import utils.generators.UserGenerator;
 import driver.WebDriverCreator;
 import org.junit.After;

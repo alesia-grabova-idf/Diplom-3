@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import utils.generators.model.User;
 
 public class LoggedInUserTest {
+
   private WebDriver driver;
   private LoginPage loginPage;
   private MainPage mainPage;
@@ -55,6 +56,7 @@ public class LoggedInUserTest {
     Thread.sleep(1000);
     assertEquals("Redirect to incorrect page URL", profilePage.getExpectedUrl(), driver.getCurrentUrl());
   }
+
   @Test
   public void logoutInProfilePage() throws Exception {
     loginPage.openPage();
@@ -67,6 +69,4 @@ public class LoggedInUserTest {
     Thread.sleep(1000);
     assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());
   }
-
-
 }

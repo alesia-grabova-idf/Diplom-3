@@ -5,7 +5,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class RecoveryPasswordPage implements BasePage{
+public class RecoveryPasswordPage implements BasePage {
+
   private WebDriver driver;
   private By emailInput = By.xpath("//input[@name='name']");
   private By recoveryButton = By.xpath("//button[text()='Восстановить']");
@@ -24,9 +25,9 @@ public class RecoveryPasswordPage implements BasePage{
   public String getPageUrl() {
     return StellarBurgerConfig.FORGOT_PASSWORD;
   }
+
   @Step("Click Enter Button")
-  public void clickEnterButton(){
+  public void clickEnterButton() {
     driver.findElement(enterButton).click();
   }
-
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class HeaderMenu {
+
   private WebDriver driver;
   private By constructor = By.xpath("//a[p[text()='Конструктор']]");
   private By stellarBurgLogo = By.xpath("//*[@id=\"root\"]/div/header/nav/div");
@@ -16,17 +17,17 @@ public class HeaderMenu {
   }
 
   @Step("Click Constructor button")
-  public void clickConstructorButton(){
+  public void clickConstructorButton() {
     driver.findElement(constructor).click();
   }
+
   @Step("Click Stellar Burger Logo")
-  public void clickStellarBurgLogo(){
+  public void clickStellarBurgLogo() {
     driver.findElement(stellarBurgLogo).click();
   }
+
   @Step("Click Private Area Button")
-  public void clickPrivateAreaButton(){
+  public void clickPrivateAreaButton() {
     driver.findElement(privateAreaButton).click();
   }
-
-
 }

@@ -1,5 +1,7 @@
 package stellarBurgerTest;
 
+import static utils.Utils.randomString;
+
 import driver.WebDriverCreator;
 import org.junit.After;
 import org.junit.Assert;
@@ -30,8 +32,8 @@ public class RegistrationWithInvalidPasswordTest {
   }
 
   @Test
-  public void failRegistrationWith() {
-    testUser.setPassword("1234");
+  public void failRegistrationWithInvalidPassword() {
+    testUser.setPassword(randomString(4));
     registrationPage.fillRegisterData(testUser);
     registrationPage.clickRegisterButton();
     Assert.assertTrue("Валидационное сообщение для поля пароль не появилось",

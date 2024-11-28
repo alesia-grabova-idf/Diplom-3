@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import stellarBurger.RegistrationPage;
 import utils.generators.model.User;
 
+
 public class EnterToAccountTest {
 
   private WebDriver driver;
@@ -33,12 +34,12 @@ public class EnterToAccountTest {
   public void startUp() {
     driver = new WebDriverCreator().setup();
     clientUser = new ClientUser();
-    testUser = UserGenerator.randomUser();
     mainPage = new MainPage(driver);
     loginPage = new LoginPage(driver);
     headerMenu = new HeaderMenu(driver);
     registrationPage = new RegistrationPage(driver);
     recoveryPasswordPage = new RecoveryPasswordPage(driver);
+    testUser = UserGenerator.randomUser();
     Response response = clientUser.registerUser(testUser);
     token = clientUser.extractToken(response);
   }
@@ -50,8 +51,7 @@ public class EnterToAccountTest {
   }
 
   @Test
-  public void enterToAccountByEnterButtonOnMainPage() throws Exception {
-//    mainPage = new MainPage(driver);
+  public void enterToAccountByEnterButtonOnMainPage() {
     mainPage.openPage();
     mainPage.clickEnterToAccount();
     assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());

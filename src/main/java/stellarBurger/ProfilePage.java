@@ -18,6 +18,7 @@ public class ProfilePage implements BasePage {
   public String getPageUrl() {
     return StellarBurgerConfig.PROFILE;
   }
+
   @Override
   public WebDriver getDriver() {
     return driver;

@@ -31,12 +31,12 @@ public class HeaderMenuTest {
   public void startUp() {
     driver = new WebDriverCreator().setup();
     clientUser = new ClientUser();
-    testUser = UserGenerator.randomUser();
     mainPage = new MainPage(driver);
     loginPage = new LoginPage(driver);
-    loginPage.openPage();
     headerMenu = new HeaderMenu(driver);
     profilePage = new ProfilePage(driver);
+    loginPage.openPage();
+    testUser = UserGenerator.randomUser();
     Response response = clientUser.registerUser(testUser);
     token = clientUser.extractToken(response);
     loginPage.login(testUser.getEmail(), testUser.getPassword());
@@ -63,5 +63,4 @@ public class HeaderMenuTest {
     Thread.sleep(1000);
     assertEquals("Redirect to incorrect page URL", mainPage.getExpectedUrl(), driver.getCurrentUrl());
   }
-
 }

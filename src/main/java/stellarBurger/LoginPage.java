@@ -5,7 +5,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage implements BasePage{
+public class LoginPage implements BasePage {
 
   private WebDriver driver;
   private By emailInput = By.xpath("//input[@name='name']");
@@ -27,8 +27,9 @@ public class LoginPage implements BasePage{
   public WebDriver getDriver() {
     return driver;
   }
+
   @Step("Fill login data en login")
-  public void login (String email, String password) {
+  public void login(String email, String password) {
     driver.findElement(emailInput).sendKeys(email);
     driver.findElement(passwordInput).sendKeys(password);
     driver.findElement(enterButton).click();
