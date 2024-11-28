@@ -6,11 +6,12 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import config.StellarBurgerConfig;
+import utils.generators.model.User;
 
 public class ClientUser {
 
   @Step("Send POST request to register a new user")
-  public Response registerUser(ClientUser user) {
+  public Response registerUser(User user) {
     return given()
         .header("Content-Type", "application/json")
         .body(user)

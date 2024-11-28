@@ -2,6 +2,7 @@ package stellarBurgerTest;
 
 import driver.WebDriverCreator;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -13,15 +14,19 @@ public class RegistrationWithInvalidPasswordTest {
 
   private WebDriver driver;
   private RegistrationPage registrationPage;
-  private String accessToken;
   private User testUser;
 
   @Before
   public void startUp() {
     driver = new WebDriverCreator().setup();
     registrationPage = new RegistrationPage(driver);
-    registrationPage.verifyPageEndpoint();
+    registrationPage.openPage();
     testUser = UserGenerator.randomUser();
+  }
+
+  @After
+  public void tearDown() {
+    driver.quit();
   }
 
   @Test
@@ -29,11 +34,7 @@ public class RegistrationWithInvalidPasswordTest {
     testUser.setPassword("1234");
     registrationPage.fillRegisterData(testUser);
     registrationPage.clickRegisterButton();
-    registrationPage.isValidationMessageVisible();
-  }
-
-  @After
-  public void tearDown() {
-    driver.quit();
+    Assert.assertTrue("Валидационное сообщение для поля пароль не появилось",
+        registrationPage.isValidationMessageVisible());
   }
 }

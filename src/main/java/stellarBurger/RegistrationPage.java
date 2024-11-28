@@ -31,8 +31,8 @@ public class RegistrationPage implements BasePage {
   }
 
   @Override
-  public void verifyPageEndpoint() {
-    BasePage.super.verifyPageEndpoint();
+  public void openPage() {
+    BasePage.super.openPage();
   }
 
   @Step("Enter users data: Name, Email, Password ")

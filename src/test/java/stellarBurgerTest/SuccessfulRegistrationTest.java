@@ -1,5 +1,9 @@
 package stellarBurgerTest;
 
+import static org.junit.Assert.assertEquals;
+
+import stellarBurger.LoginPage;
+import stellarBurger.MainPage;
 import utils.generators.UserGenerator;
 import driver.WebDriverCreator;
 import org.junit.After;
@@ -9,28 +13,32 @@ import org.openqa.selenium.WebDriver;
 import stellarBurger.RegistrationPage;
 import utils.generators.model.User;
 
-public class RegistrationTest {
+public class SuccessfulRegistrationTest {
 
   private WebDriver driver;
   private RegistrationPage registrationPage;
+  private LoginPage loginPage;
   private User testUser;
 
   @Before
   public void startUp() {
     driver = new WebDriverCreator().setup();
     registrationPage = new RegistrationPage(driver);
-    registrationPage.verifyPageEndpoint();
+    registrationPage.openPage();
     testUser = UserGenerator.randomUser();
-  }
-
-  @Test
-  public void successfulRegistration() {
-    registrationPage.fillRegisterData(testUser);
-    registrationPage.clickRegisterButton();
+    loginPage = new LoginPage(driver);
   }
 
   @After
   public void tearDown() {
     driver.quit();
+  }
+
+  @Test
+  public void successfulRegistration() throws Exception {
+    registrationPage.fillRegisterData(testUser);
+    registrationPage.clickRegisterButton();
+    Thread.sleep(1000);
+    assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());
   }
 }

@@ -25,13 +25,12 @@ public class LoginPage implements BasePage{
 
   @Override
   public WebDriver getDriver() {
-    return driver;  // Возвращаем драйвер, который был передан через конструктор
+    return driver;
   }
-  @Step("Login")
+  @Step("Fill login data en login")
   public void login (String email, String password) {
     driver.findElement(emailInput).sendKeys(email);
     driver.findElement(passwordInput).sendKeys(password);
     driver.findElement(enterButton).click();
   }
-
 }

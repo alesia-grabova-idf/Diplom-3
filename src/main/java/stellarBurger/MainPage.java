@@ -4,7 +4,6 @@ import config.StellarBurgerConfig;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class MainPage implements BasePage {
 
@@ -23,19 +22,28 @@ public class MainPage implements BasePage {
   private By fillingTetraodontimformFillet = By.xpath("//a[@href='/ingredient/61c0c5a71d1f82001bdaaa6e']");
   private By fillingBioCutlet = By.xpath("//a[@href='/ingredient/61c0c5a71d1f82001bdaaa71']");
 
+  public MainPage(WebDriver driver) {
+    this.driver = driver;
+  }
+
   @Override
   public String getPageUrl() {
-    return StellarBurgerConfig.BASE_URL;
+    return StellarBurgerConfig.MAIN;
   }
   @Override
   public WebDriver getDriver() {
     return driver;
+  }
+  @Override
+  public String getExpectedUrl() {
+    return BasePage.super.getExpectedUrl();
   }
 
   @Step("Click on buns in Menu block")
   public void clickBuns() {
     driver.findElement(buns).click();
   }
+
 
   @Step("Click on sauces in Menu block")
   public void clickSauces() {
@@ -46,7 +54,7 @@ public class MainPage implements BasePage {
     driver.findElement(fillings).click();
   }
   @Step("Click Enter to Private Area on Menu Page")
-  public void clickEntertoAccount() {
+  public void clickEnterToAccount() {
     driver.findElement(enterButton).click();
   }
   @Step("Verify visibility of Флюоресцентная булка in Buns menu")

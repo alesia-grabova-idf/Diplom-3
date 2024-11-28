@@ -6,12 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public interface BasePage {
+
   String getPageUrl();
+
   WebDriver getDriver();
 
-  default void verifyPageEndpoint() {
+  default void openPage() {
     String fullUrl = StellarBurgerConfig.BASE_URL + getPageUrl();
     getDriver().get(fullUrl);
+  }
+
+  default String getExpectedUrl() {
+    return StellarBurgerConfig.BASE_URL + getPageUrl();
   }
 
   default boolean isElementVisible(By locator) {
