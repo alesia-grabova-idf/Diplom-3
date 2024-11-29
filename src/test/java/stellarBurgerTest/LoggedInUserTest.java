@@ -14,11 +14,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import utils.generators.model.User;
 
 public class LoggedInUserTest {
 
   private WebDriver driver;
+  private WebDriverWait wait;
   private LoginPage loginPage;
   private MainPage mainPage;
   private HeaderMenu headerMenu;
@@ -30,6 +34,7 @@ public class LoggedInUserTest {
   @Before
   public void startUp() {
     driver = new WebDriverCreator().setup();
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     clientUser = new ClientUser();
     testUser = UserGenerator.randomUser();
     mainPage = new MainPage(driver);
@@ -47,26 +52,26 @@ public class LoggedInUserTest {
   }
 
   @Test
-  public void enterToProfileByHeaderMenu() throws Exception {
+  public void enterToProfileByHeaderMenu() {
     loginPage.openPage();
     loginPage.login(testUser.getEmail(), testUser.getPassword());
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(mainPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", mainPage.getExpectedUrl(), driver.getCurrentUrl());
     headerMenu.clickPrivateAreaButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(profilePage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", profilePage.getExpectedUrl(), driver.getCurrentUrl());
   }
 
   @Test
-  public void logoutInProfilePage() throws Exception {
+  public void logoutInProfilePage() {
     loginPage.openPage();
     loginPage.login(testUser.getEmail(), testUser.getPassword());
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(mainPage.getExpectedUrl()));
     headerMenu.clickPrivateAreaButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(profilePage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", profilePage.getExpectedUrl(), driver.getCurrentUrl());
     profilePage.clickExitButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(loginPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());
   }
 }

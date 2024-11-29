@@ -14,13 +14,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import stellarBurger.RegistrationPage;
 import utils.generators.model.User;
-
 
 public class EnterToAccountTest {
 
   private WebDriver driver;
+  private WebDriverWait wait;
   private RegistrationPage registrationPage;
   private LoginPage loginPage;
   private RecoveryPasswordPage recoveryPasswordPage;
@@ -33,6 +36,7 @@ public class EnterToAccountTest {
   @Before
   public void startUp() {
     driver = new WebDriverCreator().setup();
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     clientUser = new ClientUser();
     mainPage = new MainPage(driver);
     loginPage = new LoginPage(driver);
@@ -69,22 +73,22 @@ public class EnterToAccountTest {
   }
 
   @Test
-  public void enterToAccountInRegistrationPageTest() throws Exception {
+  public void enterToAccountInRegistrationPageTest() {
     registrationPage.openPage();
     registrationPage.clickLoginButton();
     assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());
     loginPage.login(testUser.getEmail(), testUser.getPassword());
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(mainPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", mainPage.getExpectedUrl(), driver.getCurrentUrl());
   }
 
   @Test
-  public void enterToAccountInRecoveryPasswordPageTest() throws Exception {
+  public void enterToAccountInRecoveryPasswordPageTest() {
     recoveryPasswordPage.openPage();
     recoveryPasswordPage.clickEnterButton();
     assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());
     loginPage.login(testUser.getEmail(), testUser.getPassword());
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(mainPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", mainPage.getExpectedUrl(), driver.getCurrentUrl());
   }
 }

@@ -14,6 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import utils.generators.model.User;
 
 public class HeaderMenuTest {
@@ -26,10 +29,12 @@ public class HeaderMenuTest {
   private User testUser;
   private ClientUser clientUser;
   private String token;
+  private WebDriverWait wait;
 
   @Before
   public void startUp() {
     driver = new WebDriverCreator().setup();
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     clientUser = new ClientUser();
     mainPage = new MainPage(driver);
     loginPage = new LoginPage(driver);
@@ -49,18 +54,18 @@ public class HeaderMenuTest {
   }
 
   @Test
-  public void headerMenuNavigationTest() throws Exception {
+  public void headerMenuNavigationTest() {
     headerMenu.clickPrivateAreaButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(profilePage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", profilePage.getExpectedUrl(), driver.getCurrentUrl());
     headerMenu.clickConstructorButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(mainPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", mainPage.getExpectedUrl(), driver.getCurrentUrl());
     headerMenu.clickPrivateAreaButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(profilePage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", profilePage.getExpectedUrl(), driver.getCurrentUrl());
     headerMenu.clickStellarBurgLogo();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(mainPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", mainPage.getExpectedUrl(), driver.getCurrentUrl());
   }
 }

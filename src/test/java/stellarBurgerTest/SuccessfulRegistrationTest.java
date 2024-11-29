@@ -9,12 +9,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import stellarBurger.RegistrationPage;
 import utils.generators.model.User;
 
 public class SuccessfulRegistrationTest {
 
   private WebDriver driver;
+  private WebDriverWait wait;
   private RegistrationPage registrationPage;
   private LoginPage loginPage;
   private User testUser;
@@ -22,6 +26,7 @@ public class SuccessfulRegistrationTest {
   @Before
   public void startUp() {
     driver = new WebDriverCreator().setup();
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     registrationPage = new RegistrationPage(driver);
     registrationPage.openPage();
     testUser = UserGenerator.randomUser();
@@ -34,10 +39,10 @@ public class SuccessfulRegistrationTest {
   }
 
   @Test
-  public void successfulRegistration() throws Exception {
+  public void successfulRegistration() {
     registrationPage.fillRegisterData(testUser);
     registrationPage.clickRegisterButton();
-    Thread.sleep(1000);
+    wait.until(ExpectedConditions.urlToBe(loginPage.getExpectedUrl()));
     assertEquals("Redirect to incorrect page URL", loginPage.getExpectedUrl(), driver.getCurrentUrl());
   }
 }
